@@ -1,6 +1,7 @@
 package com.example.main.controllers;
 
 import com.example.main.models.LoginProcessor;
+import com.example.main.services.ActiveUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
     private final LoginProcessor loginProcessor;
+    private final ActiveUsersService activeUsersService;
 
     @Autowired
-    public LoginController(LoginProcessor loginProcessor) {
+    public LoginController(LoginProcessor loginProcessor, ActiveUsersService activeUsersService) {
         this.loginProcessor = loginProcessor;
+        this.activeUsersService = activeUsersService;
     }
 
     @GetMapping("/")
@@ -30,6 +33,7 @@ public class LoginController {
         boolean loggedIn = loginProcessor.login();
 
         if (loggedIn) {
+            activeUsersService.increment();
             return "redirect:/main";
         }
         model.addAttribute("message", "Login failed");

@@ -30,7 +30,7 @@ public class LoginProcessor {
         String password = this.getPassword();
 
         boolean loginResult = false;
-        if ("natalie".equals(username) && "password".equals(password)) {
+        if (("natalie".equals(username) && "password".equals(password)) || ("adilet".equals(username) && "password".equals(password))) {
             loginResult = true;
             successLoginCountService.increment();
             loggedUserManagementService.setUsername(username);
