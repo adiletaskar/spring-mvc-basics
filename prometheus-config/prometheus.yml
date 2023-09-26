@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 15s # Интервал сбора метрик (15 секунд по умолчанию)
+
+scrape_configs:
+  - job_name: 'spring-app'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['my-app:8080'] # Имя сервиса и порт внутри вашей сети Docker

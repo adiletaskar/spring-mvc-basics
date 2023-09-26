@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
     private final LoggedUserManagementService loggedUserManagementService;
-    private final LoginCountService loginCountService;
     private final ActiveUsersService activeUsersService;
     @Autowired
     public MainController(LoggedUserManagementService loggedUserManagementService, LoginCountService loginCountService, ActiveUsersService activeUsersService){
         this.loggedUserManagementService = loggedUserManagementService;
-        this.loginCountService = loginCountService;
         this.activeUsersService = activeUsersService;
     }
 
@@ -29,12 +27,10 @@ public class MainController {
         }
 
         String username = loggedUserManagementService.getUsername();
-        int count = loginCountService.getCount();
         if(username == null){
             return "redirect:/";
         }
         model.addAttribute("username",username);
-        model.addAttribute("loginCount",count);
         return "main.html";
     }
 }
